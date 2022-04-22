@@ -3,7 +3,7 @@
 # Each cell has a pointer: (n = north, s = south, e = east, w = west)
 # node also contains a coordinate
 class Cell
-  attr_accessor :data
+  attr_accessor :value, :adjacent_cells
 
   def initialize(value)
     @value = value
