@@ -5,19 +5,15 @@ require_relative 'cell'
 # 8 x 8 cell game board
 class Board
   def initialize
-    @board = create_board
+    @board = {}
   end
 
-  def create_board(x = 0, y = 0)
-    return @cells if x == 8
-
-    cell = Cell.new(x, y)
-    p cell.data
-    @cells.push(cell.data)
-    create_board(x + 1, y + 1)
+  def add_cell(cell)
+    @board[cell.data] = cell
   end
 
-  def print_board
-    p @board
+  def add_edge(cell1, cell2)
+    @board[cell1].add_edge(@board[cell2])
+    @board[cell2].add_edge(@board[cell1])
   end
 end
