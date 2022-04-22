@@ -4,5 +4,5 @@ require_relative 'board'
 
 test = Board.new
 
-test.generate_coordinates
+test.create_board
 test.create_neighbors
