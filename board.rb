@@ -64,4 +64,22 @@ class Board
   def prompt
     puts 'Enter a start and landing position for the Knight ([x1, y1], [x2, y2])'
   end
+
+  def bfs(root, search)
+    visted = [root]
+    to_visit = [root]
+
+    unless visted.empty?
+      current = to_visit.shift
+      return current if current.value == search
+
+      # add possible knight moves to queue for traversal if node not found
+      current.moves.each do |move|
+        unless visited.include?(move)
+          visited << move
+          to_visit << move
+        end
+      end
+    end
+  end
 end
