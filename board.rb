@@ -13,12 +13,6 @@ class Board
     @board[cell.value] = cell
   end
 
-  #   adds link (edge) between two cells
-  def add_edge(cell1, cell2)
-    @board[cell1].add_edge(@board[cell2])
-    @board[cell2].add_edge(@board[cell1])
-  end
-
   #   creates 64 cells for 8 x 8 board
   def create_board
     x = (0..7).to_a
@@ -31,15 +25,19 @@ class Board
     end
   end
 
-  #   assigns each cell with adjecent cells (tbc...)
-  def create_neighbors
+  #   assigns each cell with adjecent cells
+  def add_edges
     @board.each do |k, v|
-      #   v.adjacent_cells << [k[0] + 1, k[1]]
-      #   v.adjacent_cells << [k[0], k[1] + 1]
-      #   v.adjacent_cells << [k[0] - 1, k[1]]
-      #   v.adjacent_cells << [k[0], k[1] - 1]
-      p "#{k} - #{v.adjacent_cells}"
+      assign_adjacents(k, v)
+      p "#{k} ~ #{v.adjacent_cells}"
     end
+  end
+
+  def assign_adjacents(k, v)
+    v.adjacent_cells << [k[0] + 1, k[1]]  unless k[0] + 1 > 7
+    v.adjacent_cells << [k[0], k[1] + 1]  unless k[1] + 1 > 7
+    v.adjacent_cells << [k[0] - 1, k[1]]  unless (k[0] - 1).negative?
+    v.adjacent_cells << [k[0], k[1] - 1]  unless (k[1] - 1).negative?
   end
 end
 

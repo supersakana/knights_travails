@@ -5,4 +5,4 @@ require_relative 'board'
 test = Board.new
 
 test.create_board
-test.create_neighbors
+test.add_edges
