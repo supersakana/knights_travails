@@ -12,6 +12,7 @@ class Board
   def start
     create_board
     add_edges
+    prompt
   end
 
   #   creates 64 cells for 8 x 8 board
@@ -58,5 +59,9 @@ class Board
     # bottom left coordinates
     v.moves << @board[[k[0] - 2, k[1] - 1]]  unless (k[0] - 2).negative? || (k[1] - 1).negative?
     v.moves << @board[[k[0] - 1, k[1] - 2]]  unless (k[0] - 1).negative? || (k[1] - 2).negative?
+  end
+
+  def prompt
+    puts 'Enter a start and landing position for the Knight ([x1, y1], [x2, y2])'
   end
 end
