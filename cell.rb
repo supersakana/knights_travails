@@ -1,16 +1,11 @@
 # frozen_string_literal: true
 
-# Each cell has a pointer: (n = north, s = south, e = east, w = west)
-# node also contains a coordinate
+# node contains a value(coordinate) and adjacent cells
 class Cell
-  attr_accessor :value, :adjacent_cells
+  attr_accessor :value, :moves
 
   def initialize(value)
     @value = value
-    @adjacent_cells = []
-  end
-
-  def add_edge(adjacent_cell)
-    @adjacent_cells << adjacent_cell
+    @moves = []
   end
 end

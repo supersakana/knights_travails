@@ -8,11 +8,6 @@ class Board
     @board = {}
   end
 
-  #   adds a cell to board
-  def add_cell(cell)
-    @board[cell.value] = cell
-  end
-
   #   creates 64 cells for 8 x 8 board
   def create_board
     x = (0..7).to_a
@@ -25,19 +20,38 @@ class Board
     end
   end
 
-  #   assigns each cell with adjecent cells
+  #   adds a cell to board
+  def add_cell(cell)
+    @board[cell.value] = cell
+  end
+
+  #   assigns each cell with list of possible knight moves
+  #   temporaraly prints each cell with moves
   def add_edges
     @board.each do |k, v|
-      assign_adjacents(k, v)
-      p "#{k} ~ #{v.adjacent_cells.map { |node| node.value }}"
+      add_moves(k, v)
+      p "#{k} ~ #{v.moves.map(&:value)}"
     end
   end
 
-  #  selects adjacent cell (no values greater than 7, less than 0)
-  def assign_adjacents(k, v)
-    v.adjacent_cells << @board[[k[0] + 1, k[1]]]  unless k[0] + 1 > 7
-    v.adjacent_cells << @board[[k[0], k[1] + 1]]  unless k[1] + 1 > 7
-    v.adjacent_cells << @board[[k[0] - 1, k[1]]]  unless (k[0] - 1).negative?
-    v.adjacent_cells << @board[[k[0], k[1] - 1]]  unless (k[1] - 1).negative?
+  #  creates each possible knight move for cell
+  #  excludes any coordinates outside of the gameboard
+  #  (TEMPORARY SOLUTION)
+  def add_moves(k, v)
+    # top right coordinates
+    v.moves << @board[[k[0] + 2, k[1] + 1]]  unless k[0] + 2 > 7 || k[1] + 1 > 7
+    v.moves << @board[[k[0] + 1, k[1] + 2]]  unless k[0] + 1 > 7 || k[1] + 2 > 7
+
+    # top left coordinates
+    v.moves << @board[[k[0] - 1, k[1] + 2]]  unless (k[0] - 1).negative? || k[1] + 2 > 7
+    v.moves << @board[[k[0] - 2, k[1] + 1]]  unless (k[0] - 2).negative? || k[1] + 1 > 7
+
+    # bottom right coordinates
+    v.moves << @board[[k[0] + 1, k[1] - 2]]  unless k[0] + 1 > 7 || (k[1] - 2).negative?
+    v.moves << @board[[k[0] + 2, k[1] - 1]]  unless k[0] + 2 > 7 || (k[1] - 1).negative?
+
+    # bottom left coordinates
+    v.moves << @board[[k[0] - 2, k[1] - 1]]  unless (k[0] - 2).negative? || (k[1] - 1).negative?
+    v.moves << @board[[k[0] - 1, k[1] - 2]]  unless (k[0] - 1).negative? || (k[1] - 2).negative?
   end
 end
