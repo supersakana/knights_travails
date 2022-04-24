@@ -8,13 +8,18 @@ class Board
     @board = {}
   end
 
+  # runs the program
+  def start
+    create_board
+    add_edges
+  end
+
   #   creates 64 cells for 8 x 8 board
   def create_board
-    x = (0..7).to_a
-    y = (0..7).to_a
-    x.each do |x_val|
-      y.each do |y_val|
-        cell = Cell.new([x_val, y_val])
+    coordinates = (0..7).to_a
+    coordinates.each do |x|
+      coordinates.each do |y|
+        cell = Cell.new([x, y])
         add_cell(cell)
       end
     end
