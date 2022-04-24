@@ -2,7 +2,7 @@
 
 require_relative 'cell'
 
-# 8 x 8 cell game board
+# 8 x 8 game board
 class Board
   def initialize
     @board = {}
@@ -29,20 +29,15 @@ class Board
   def add_edges
     @board.each do |k, v|
       assign_adjacents(k, v)
-      p "#{k} ~ #{v.adjacent_cells}"
+      p "#{k} ~ #{v.adjacent_cells.map { |node| node.value }}"
     end
   end
 
+  #  selects adjacent cell (no values greater than 7, less than 0)
   def assign_adjacents(k, v)
-    v.adjacent_cells << [k[0] + 1, k[1]]  unless k[0] + 1 > 7
-    v.adjacent_cells << [k[0], k[1] + 1]  unless k[1] + 1 > 7
-    v.adjacent_cells << [k[0] - 1, k[1]]  unless (k[0] - 1).negative?
-    v.adjacent_cells << [k[0], k[1] - 1]  unless (k[1] - 1).negative?
+    v.adjacent_cells << @board[[k[0] + 1, k[1]]]  unless k[0] + 1 > 7
+    v.adjacent_cells << @board[[k[0], k[1] + 1]]  unless k[1] + 1 > 7
+    v.adjacent_cells << @board[[k[0] - 1, k[1]]]  unless (k[0] - 1).negative?
+    v.adjacent_cells << @board[[k[0], k[1] - 1]]  unless (k[1] - 1).negative?
   end
 end
-
-# Questions
-
-# "How can we assing each node with it's adjacent neighbor?"
-# "How can we express a condition where the neightbors can NOT be > 7 || < 0?"
-# "With this graph model, will we be able to implement a BFT?"

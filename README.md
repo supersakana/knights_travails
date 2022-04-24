@@ -42,7 +42,7 @@ Cycles - exist when the first node can return from itself
 
 Weigthed Graphs - edges contain values, commmon in working with maps for distance
 
-### Scott Young | Implementing aan Undirected Graph in Ruby
+### Scott Young | Implementing an Undirected Graph in Ruby
 
 <----------------->
 https://medium.com/@young.scottw/implementing-an-undirected-graph-in-ruby-c11258b3d95b
