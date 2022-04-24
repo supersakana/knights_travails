@@ -1,8 +1,10 @@
-# Knights Travails
+# Knights Travails (WIP...)
 
 ## Assignment
 
 Build a function (knight_moves) that shows the simplest possible way to get from one square to another by outputting all squares the knight will stop on along the way
+
+https://www.theodinproject.com/lessons/ruby-knights-travails
 
 ## Resources
 
