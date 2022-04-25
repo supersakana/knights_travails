@@ -12,6 +12,7 @@ class Board
   def start
     create_board
     add_edges
+    # search algo test, should return something like => [0, 0], [1, 2], [3, 3]
     p bfs([0, 0], [3, 3])
   end
 
@@ -66,16 +67,16 @@ class Board
   # breadth first search
   def bfs(root, search)
     visited = []
-    to_visit = [@board[root]]
+    q = [@board[root]]
 
-    until to_visit.empty?
-      current = to_visit.shift
+    until q.empty?
+      current = q.shift
       visited << current.value
       return visited if current.value == search
 
       # add possible knight moves to queue for traversal if node not found
       current.moves.each do |move|
-        to_visit << @board[move] unless visited.include?(move)
+        q << @board[move] unless visited.include?(move)
       end
     end
   end
