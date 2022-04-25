@@ -12,7 +12,7 @@ class Board
   def start
     create_board
     add_edges
-    # bfs([0, 0], [3, 3])
+    p bfs([0, 0], [3, 3])
   end
 
   #   creates 64 cells for 8 x 8 board
