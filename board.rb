@@ -12,7 +12,7 @@ class Board
   def start
     create_board
     add_edges
-    prompt
+    # bfs([0, 0], [3, 3])
   end
 
   #   creates 64 cells for 8 x 8 board
@@ -36,7 +36,9 @@ class Board
   def add_edges
     @board.each do |k, v|
       add_moves(k, v)
-      p "#{k} ~ #{v.moves.map(&:value)}"
+      p "#{k} ~ #{v}"
+      p "Knight Moves: #{v.moves}"
+      p '---------------------'
     end
   end
 
@@ -45,40 +47,37 @@ class Board
   #  (TEMPORARY SOLUTION)
   def add_moves(k, v)
     # top right coordinates
-    v.moves << @board[[k[0] + 2, k[1] + 1]]  unless k[0] + 2 > 7 || k[1] + 1 > 7
-    v.moves << @board[[k[0] + 1, k[1] + 2]]  unless k[0] + 1 > 7 || k[1] + 2 > 7
+    v.moves << [k[0] + 2, k[1] + 1]  unless k[0] + 2 > 7 || k[1] + 1 > 7
+    v.moves << [k[0] + 1, k[1] + 2]  unless k[0] + 1 > 7 || k[1] + 2 > 7
 
     # top left coordinates
-    v.moves << @board[[k[0] - 1, k[1] + 2]]  unless (k[0] - 1).negative? || k[1] + 2 > 7
-    v.moves << @board[[k[0] - 2, k[1] + 1]]  unless (k[0] - 2).negative? || k[1] + 1 > 7
+    v.moves << [k[0] - 1, k[1] + 2]  unless (k[0] - 1).negative? || k[1] + 2 > 7
+    v.moves << [k[0] - 2, k[1] + 1]  unless (k[0] - 2).negative? || k[1] + 1 > 7
 
     # bottom right coordinates
-    v.moves << @board[[k[0] + 1, k[1] - 2]]  unless k[0] + 1 > 7 || (k[1] - 2).negative?
-    v.moves << @board[[k[0] + 2, k[1] - 1]]  unless k[0] + 2 > 7 || (k[1] - 1).negative?
+    v.moves << [k[0] + 1, k[1] - 2]  unless k[0] + 1 > 7 || (k[1] - 2).negative?
+    v.moves << [k[0] + 2, k[1] - 1]  unless k[0] + 2 > 7 || (k[1] - 1).negative?
 
     # bottom left coordinates
-    v.moves << @board[[k[0] - 2, k[1] - 1]]  unless (k[0] - 2).negative? || (k[1] - 1).negative?
-    v.moves << @board[[k[0] - 1, k[1] - 2]]  unless (k[0] - 1).negative? || (k[1] - 2).negative?
+    v.moves << [k[0] - 2, k[1] - 1]  unless (k[0] - 2).negative? || (k[1] - 1).negative?
+    v.moves << [k[0] - 1, k[1] - 2]  unless (k[0] - 1).negative? || (k[1] - 2).negative?
   end
 
-  def prompt
-    puts 'Enter a start and landing position for the Knight ([x1, y1], [x2, y2])'
-  end
-
+  # breadth first search
+  # INPUT: A start and landing position
+  # OUTPUT: The path between the root and start with how many moves it took to get there.
   def bfs(root, search)
-    visted = [root]
-    to_visit = [root]
+    visited = []
+    to_visit = [@board[root]]
 
-    unless visted.empty?
+    unless to_visit.empty?
       current = to_visit.shift
-      return current if current.value == search
+      to_visit << current.value
+      return visited if current.value == search
 
       # add possible knight moves to queue for traversal if node not found
       current.moves.each do |move|
-        unless visited.include?(move)
-          visited << move
-          to_visit << move
-        end
+        to_visit << @board[move] unless visited.include?(move)
       end
     end
   end
