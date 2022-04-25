@@ -36,9 +36,9 @@ class Board
   def add_edges
     @board.each do |k, v|
       add_moves(k, v)
-      p "#{k} ~ #{v}"
-      p "Knight Moves: #{v.moves}"
-      p '---------------------'
+      # p "#{k} ~ #{v}"
+      # p "Knight Moves: #{v.moves}"
+      # p '---------------------'
     end
   end
 
@@ -64,15 +64,13 @@ class Board
   end
 
   # breadth first search
-  # INPUT: A start and landing position
-  # OUTPUT: The path between the root and start with how many moves it took to get there.
   def bfs(root, search)
     visited = []
     to_visit = [@board[root]]
 
-    unless to_visit.empty?
+    until to_visit.empty?
       current = to_visit.shift
-      to_visit << current.value
+      visited << current.value
       return visited if current.value == search
 
       # add possible knight moves to queue for traversal if node not found
