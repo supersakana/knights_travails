@@ -12,7 +12,8 @@ class Board
   def start
     create_board
     add_edges
-    p bfs([0, 0], [3, 3])
+    path = bfs([0, 0], [4, 5])
+    print_path(path)
   end
 
   #   creates 64 cells for 8 x 8 board
@@ -66,16 +67,25 @@ class Board
   def bfs(root, search)
     visited = []
     q = [@board[root]]
+    @board[root].level = 0
 
     until q.empty?
       current = q.shift
-      visited << current.value
+      visited << current
       return visited if current.value == search
 
       # add possible knight moves to queue for traversal if node not found
       current.moves.each do |move|
         q << @board[move] unless visited.include?(move)
+        @board[move].predecessor = current.value if @board[move].predecessor.nil? && move != root
       end
+    end
+  end
+
+  def print_path(path)
+    path.each do |point|
+      p "Point: #{point.value} | Pred: #{point.predecessor}"
+      p '-------------------'
     end
   end
 end
