@@ -12,7 +12,6 @@ class Board
   def start
     create_board
     add_edges
-    # search algo test, should return something like => [0, 0], [1, 2], [3, 3]
     p bfs([0, 0], [3, 3])
   end
 
@@ -33,7 +32,6 @@ class Board
   end
 
   #   assigns each cell with list of possible knight moves
-  #   temporaraly prints each cell with moves
   def add_edges
     @board.each do |k, v|
       add_moves(k, v)

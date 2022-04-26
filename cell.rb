@@ -7,5 +7,7 @@ class Cell
   def initialize(value)
     @value = value
     @moves = []
+    @level = nil
+    @predecessor = nil
   end
 end
