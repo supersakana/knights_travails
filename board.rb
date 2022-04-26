@@ -12,8 +12,7 @@ class Board
   def start
     create_board
     add_edges
-    path = bfs([7, 7], [0, 0])
-    # print_path(path)
+    path = bfs([4, 5], [0, 0])
     trim_path(path)
   end
 
@@ -37,14 +36,10 @@ class Board
   def add_edges
     @board.each do |k, v|
       add_moves(k, v)
-      # p "#{k} ~ #{v}"
-      # p "Knight Moves: #{v.moves}"
-      # p '---------------------'
     end
   end
 
   #  creates each possible knight move for cell
-  #  excludes any coordinates outside of the gameboard
   #  (TEMPORARY SOLUTION)
   def add_moves(k, v)
     # top right coordinates
@@ -83,6 +78,7 @@ class Board
     end
   end
 
+  # takes the path created from BFS and returns shortest path
   def trim_path(path)
     current = path[path.length - 1]
     new_path = [current.value]
@@ -95,12 +91,5 @@ class Board
       i -= 1
     end
     p "New Path: #{new_path}"
-  end
-
-  def print_path(path)
-    path.each do |point|
-      p "Point: #{point.value} | Pred: #{point.predecessor}"
-      p '-------------------'
-    end
   end
 end
