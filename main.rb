@@ -8,10 +8,7 @@ def instructions
 
     In an 8 x 8 Chess board, the Knight can move 2 steps forward, 1 step to either side.
 
-    To run this program, type in a coordinate ([x, y]) for the starting position of the knight
-    then another coordinate you want the knight to land on.
-
-    You will be returned with a list of moves to make from your start to end point.
+    This program will returned a list of moves from the defined start to the landing point.
 
     (Click ENTER to start!)
 

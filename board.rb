@@ -8,12 +8,18 @@ class Board
     @board = {}
   end
 
-  # runs the program
+  # runs the main program
   def start
     create_board
     add_edges
-    path = bfs([4, 5], [0, 0])
-    trim_path(path)
+
+    knight_moves([7, 7], [0, 0])
+
+    knight_moves([0, 0], [4, 5])
+
+    knight_moves([1, 2], [0, 0])
+
+    knight_moves([3, 3], [4, 3])
   end
 
   #   creates 64 cells for 8 x 8 board
@@ -27,7 +33,7 @@ class Board
     end
   end
 
-  #   adds a cell to board
+  #   adds a cell to @board
   def add_cell(cell)
     @board[cell.value] = cell
   end
@@ -39,8 +45,7 @@ class Board
     end
   end
 
-  #  creates each possible knight move for cell
-  #  (TEMPORARY SOLUTION)
+  #  creates possible knight move for a cell
   def add_moves(k, v)
     # top right coordinates
     v.moves << [k[0] + 2, k[1] + 1]  unless k[0] + 2 > 7 || k[1] + 1 > 7
@@ -59,16 +64,26 @@ class Board
     v.moves << [k[0] - 1, k[1] - 2]  unless (k[0] - 1).negative? || (k[1] - 2).negative?
   end
 
+  # returns user with shortest path from a start to landing position
+  def knight_moves(root, key)
+    path = bfs(root, key)
+    output = trim_path(path)
+
+    puts "You made it in #{output.size - 1} move(s)! Here is your path:"
+    p output
+    puts ' '
+    refresh_data
+  end
+
   # breadth first search
-  def bfs(root, search)
+  def bfs(root, key)
     visited = []
     q = [@board[root]]
-    @board[root].level = 0
 
     until q.empty?
       current = q.shift
       visited << current
-      return visited if current.value == search
+      return visited if current.value == key
 
       # add possible knight moves to queue for traversal if node not found
       current.moves.each do |move|
@@ -90,6 +105,13 @@ class Board
       end
       i -= 1
     end
-    p "New Path: #{new_path}"
+    new_path
+  end
+
+  # resets all cell predecessors
+  def refresh_data
+    @board.each do |_k, v|
+      v.predecessor = nil
+    end
   end
 end
