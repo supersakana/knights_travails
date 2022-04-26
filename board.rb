@@ -12,8 +12,9 @@ class Board
   def start
     create_board
     add_edges
-    path = bfs([0, 0], [4, 5])
-    print_path(path)
+    path = bfs([7, 7], [0, 0])
+    # print_path(path)
+    trim_path(path)
   end
 
   #   creates 64 cells for 8 x 8 board
@@ -80,6 +81,20 @@ class Board
         @board[move].predecessor = current.value if @board[move].predecessor.nil? && move != root
       end
     end
+  end
+
+  def trim_path(path)
+    current = path[path.length - 1]
+    new_path = [current.value]
+    i = path.length - 2
+    until i == -1
+      if path[i].value == current.predecessor
+        current = path[i]
+        new_path.unshift(current.value)
+      end
+      i -= 1
+    end
+    p "New Path: #{new_path}"
   end
 
   def print_path(path)
